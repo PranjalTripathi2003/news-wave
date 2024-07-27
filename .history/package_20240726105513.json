@@ -22,6 +22,5 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "vite": "^5.3.4"
-  },
-  "homepage": "https://PranjalTripathi2003.github.io/NewsWave"
+  }
 }
