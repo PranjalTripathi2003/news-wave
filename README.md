@@ -1,6 +1,6 @@
 
 
-```markdown
+
 # NewsWave
 
 NewsWave is a responsive news application built with React JS and Bootstrap, offering dynamic content loading and a modern user interface for an enhanced news browsing experience.
@@ -73,4 +73,4 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-```
+
