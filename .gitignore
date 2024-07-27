@@ -27,6 +27,3 @@ dist-ssr
 
 # Secrets
 .env
-
-# Node modules
-node_modules/
