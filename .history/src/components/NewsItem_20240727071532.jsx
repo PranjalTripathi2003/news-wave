@@ -3,19 +3,13 @@ import "../styles/NewsItem.css";
 import imageLight from "../assets/news_banner.png";
 import imageDark from "../assets/news_banner_dark.png";
 
-const NewsItem = ({ title = "", description = "", src, url, darkMode }) => {
-  // Truncate title after 10 words
+const NewsItem = ({ title, description, src, url, darkMode }) => {
   const truncatedTitle =
-    title.split(" ").length > 10
-      ? title.split(" ").slice(0, 10).join(" ") + "..."
-      : title;
-
-  // Truncate description after 50 characters
-  const truncatedDescription = description
-    ? description.length > 50
-      ? `${description.slice(0, 50)}...`
-      : description
-    : "Description of the news not found";
+    title.length > 50 ? title.substring(0, 47) + "..." : title;
+  const truncatedDescription =
+    description.length > 100
+      ? description.substring(0, 97) + "..."
+      : description;
 
   return (
     <div

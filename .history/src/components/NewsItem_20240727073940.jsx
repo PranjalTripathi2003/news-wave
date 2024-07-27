@@ -4,10 +4,10 @@ import imageLight from "../assets/news_banner.png";
 import imageDark from "../assets/news_banner_dark.png";
 
 const NewsItem = ({ title = "", description = "", src, url, darkMode }) => {
-  // Truncate title after 10 words
+  // Truncate title after 15 words
   const truncatedTitle =
-    title.split(" ").length > 10
-      ? title.split(" ").slice(0, 10).join(" ") + "..."
+    title.split(" ").length > 15
+      ? title.split(" ").slice(0, 15).join(" ") + "..."
       : title;
 
   // Truncate description after 50 characters

@@ -1,21 +1,13 @@
 import React from "react";
-import "../styles/NewsItem.css";
-import imageLight from "../assets/news_banner.png";
-import imageDark from "../assets/news_banner_dark.png";
 
-const NewsItem = ({ title = "", description = "", src, url, darkMode }) => {
-  // Truncate title after 10 words
-  const truncatedTitle =
-    title.split(" ").length > 10
-      ? title.split(" ").slice(0, 10).join(" ") + "..."
-      : title;
+const NewsItem = ({ title = "", description = "", url, src, darkMode, imageDark, imageLight }) => {
+  const truncatedTitle = title.split(" ").length > 50 
+    ? title.split(" ").slice(0, 50).join(" ") + "..." 
+    : title;
 
-  // Truncate description after 50 characters
-  const truncatedDescription = description
-    ? description.length > 50
-      ? `${description.slice(0, 50)}...`
-      : description
-    : "Description of the news not found";
+  const truncatedDescription = description.length > 100 
+    ? description.substring(0, 97) + "..." 
+    : description;
 
   return (
     <div
