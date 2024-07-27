@@ -1,0 +1,26 @@
+/* DarkMode.css */
+body.dark-mode {
+  background-color: #2E2E2E; /* Graying dark background */
+  color: #ffffff;
+}
+
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.navbar-dark {
+  background-color: #343a40 !important;
+}
+
+.navbar-light {
+  background-color: #f8f9fa !important;
+}
+
+.bg-dark {
+  background-color: #343a40 !important;
+}
+
+.text-light {
+  color: #ffffff !important;
+}

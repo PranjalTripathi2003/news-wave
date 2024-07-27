@@ -1,0 +1,12 @@
+/* Navbar.css */
+.nav-link,
+.container-fluid {
+  cursor: pointer;
+}
+.text-light {
+  color: #ffffff !important;
+}
+
+.text-dark {
+  color: #000000 !important;
+}

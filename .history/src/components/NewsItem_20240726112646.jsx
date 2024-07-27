@@ -1,0 +1,29 @@
+import React from "react";
+import "../styles/NewsItem.css";
+import image from "../assets/news_banner.png";
+
+const NewsItem = ({ title, description, src, url, darkMode }) => {
+  return (
+    <div
+      className={`card mb-3 d-inline-block my-3 mx-3 px-2 py-2 ${
+        darkMode ? "bg-dark text-light" : "bg-light text-dark"
+      }`}
+      style={{ maxWidth: "345px" }}
+    >
+      <img src={src ? src : image} className="card-img-top" alt="..." />
+      <div className="card-body">
+        <h5 className="card-title">{title.slice(0, 50)}</h5>
+        <p className="card-text">
+          {description
+            ? description.slice(0, 50)
+            : "Description of the news not found"}
+        </p>
+        <a href={url} className="btn btn-primary">
+          Read More
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default NewsItem;
