@@ -1,39 +1,28 @@
 import React, { useEffect, useState } from "react";
-import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
-import "../styles/NewsBoard.css";
+import NewsItem from "./NewsItem";
 
-const NewsBoard = ({ category, darkMode }) => {
-  const [articles, setArticles] = useState([]);
+const NewsBoard = ({ darkMode }) => {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-    fetch("http://localhost:3000/api/news")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
+    // Simulate data fetching
+    fetch("https://newsapi.org/v2/top-headlines?country=us&apiKey=YOUR_API_KEY")
+      .then((response) => response.json())
       .then((data) => {
         console.log("Fetched articles:", data.articles); // Debugging log
-        if (data.articles) {
-          setArticles(data.articles);
-        } else {
-          console.error("No articles found in the response");
-          setError("No articles found in the response");
-        }
+        setArticles(data.articles);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
-        setError(error.message);
+        console.error("Error fetching articles:", error);
         setLoading(false);
       });
-  }, [category]);
+  }, []);
+
+  console.log("Loading state:", loading); // Debugging log
+  console.log("Articles:", articles); // Debugging log
 
   return (
     <div className={darkMode ? "dark-mode" : "light-mode"}>
@@ -42,10 +31,6 @@ const NewsBoard = ({ category, darkMode }) => {
       </h2>
       {loading ? (
         <Spinner />
-      ) : error ? (
-        <div className="alert alert-danger" role="alert">
-          {error}
-        </div>
       ) : (
         articles.map((news, index) => {
           return (

@@ -6,12 +6,13 @@ import "../styles/NewsBoard.css";
 const NewsBoard = ({ category, darkMode }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
-    setError(null);
-    fetch("http://localhost:3000/api/news")
+    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${
+      import.meta.env.VITE_API_KEY
+    }`;
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -19,21 +20,15 @@ const NewsBoard = ({ category, darkMode }) => {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched articles:", data.articles); // Debugging log
-        if (data.articles) {
-          setArticles(data.articles);
-        } else {
-          console.error("No articles found in the response");
-          setError("No articles found in the response");
-        }
+        setArticles(data.articles || []); // Fallback to an empty array if articles is undefined
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
-        setError(error.message);
+        console.error("Fetching error: ", error);
         setLoading(false);
       });
   }, [category]);
+
 
   return (
     <div className={darkMode ? "dark-mode" : "light-mode"}>
@@ -42,10 +37,6 @@ const NewsBoard = ({ category, darkMode }) => {
       </h2>
       {loading ? (
         <Spinner />
-      ) : error ? (
-        <div className="alert alert-danger" role="alert">
-          {error}
-        </div>
       ) : (
         articles.map((news, index) => {
           return (
