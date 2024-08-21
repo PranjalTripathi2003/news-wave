@@ -3,7 +3,8 @@ import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from "cors";
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config({ path: "./news-api-proxy/.env" });
+ // Load environment variables from .env file
 console.log(process.env.NEWS_API_KEY);
 
 const app = express();
