@@ -1,6 +1,3 @@
-
-
-
 # NewsWave
 
 NewsWave is a responsive news application built with React JS and Bootstrap, offering dynamic content loading and a modern user interface for an enhanced news browsing experience.
@@ -20,6 +17,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Node.js (https://nodejs.org/)
 - npm (comes with Node.js)
+- A News API key (https://newsapi.org/)
 
 ### Installation
 
@@ -29,17 +27,29 @@ These instructions will get you a copy of the project up and running on your loc
    cd newswave
    ```
 
-2. Install dependencies
+2. Install dependencies in the root folder
    ```
    npm install
    ```
 
-3. Start the development server
+3. Navigate to the `news-api-proxy` folder and enter your News API key in the `.env` file
    ```
+   cd news-api-proxy
+   echo "NEWS_API_KEY=your_api_key" > .env
+   ```
+
+4. Start the server in the `news-api-proxy` folder
+   ```
+   node server.js
+   ```
+
+5. Return to the root folder and start the development server
+   ```
+   cd ..
    npm run dev
    ```
 
-4. Open your browser and visit `http://localhost:5173` (or the port shown in your terminal)
+6. Open your browser and visit `http://localhost:5173` (or the port shown in your terminal)
 
 ## Project Structure
 
@@ -51,6 +61,10 @@ newswave/
 │   ├── styles/
 │   ├── App.jsx
 │   └── main.jsx
+├── news-api-proxy/
+│   ├── server.js
+│   ├── .env (to be created)
+│   └── other files...
 ├── .eslintrc.js
 ├── .gitignore
 ├── index.html
@@ -72,5 +86,4 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 
