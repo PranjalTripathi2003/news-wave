@@ -1,0 +1,22 @@
+{
+  "env": {
+    "NODE_ENV": "production",
+    "NEWS_API_KEY": "@news-api-key"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production",
+      "NEWS_API_KEY": "@news-api-key"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
