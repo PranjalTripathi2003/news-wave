@@ -2,17 +2,11 @@ import express from "express";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url"; // Import this to handle ES module path resolution
+import path from "path"
 
-// Simulate __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
-
-console.log(process.env.NEWS_API_KEY); // Verify that the NEWS_API_KEY is being read correctly
+// Load environment variables from .env file
+console.log(process.env.NEWS_API_KEY);
 
 const app = express();
 const port = process.env.PORT || 3000;
