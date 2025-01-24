@@ -8,31 +8,40 @@ const NewsBoard = ({ category, darkMode }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "/api/news"
+      : "http://localhost:3000/api/news";
+
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-    fetch("http://localhost:3000/api/news")
-      .then((response) => {
+    const fetchNews = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(`${API_URL}?category=${category}`);
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          const errorData = await response.json();
+          throw new Error(
+            errorData.message || `HTTP error! status: ${response.status}`
+          );
         }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Fetched articles:", data.articles); // Debugging log
-        if (data.articles) {
-          setArticles(data.articles);
-        } else {
-          console.error("No articles found in the response");
-          setError("No articles found in the response");
+
+        const data = await response.json();
+        if (!data.articles?.length) {
+          throw new Error("No articles found for this category");
         }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+
+        setArticles(data.articles);
+      } catch (error) {
+        console.error("Error:", error.message);
         setError(error.message);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchNews();
   }, [category]);
 
   return (

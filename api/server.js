@@ -11,42 +11,54 @@ const __dirname = path.dirname(__filename);
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
+if(process.env.STATE === "PRODUCTION"){
+  console.log(process.env.NEWS_API_KEY); // Verify that the NEWS_API_KEY is being read correctly
 
-console.log(process.env.NEWS_API_KEY); // Verify that the NEWS_API_KEY is being read correctly
+}
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Use the CORS middleware
+// Serve static files from the React build
+app.use(express.static(path.join(__dirname, "../dist")));
+
+// Use the CORS middlewarev
 app.use(cors());
 
 app.get("/api/news", async (req, res) => {
   try {
-    console.log("Fetching news from News API...");
+    const { category = "general" } = req.query;
+    console.log("Fetching news for category:", category);
+
     const apiKey = process.env.NEWS_API_KEY;
     if (!apiKey) {
       throw new Error("NEWS_API_KEY environment variable is not set");
     }
-    console.log("Using API Key:", apiKey); // Log the API key to verify it's being read correctly
+
     const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=in&category=general&apiKey=${apiKey}`
+      `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`
     );
+
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch news from News API: ${response.statusText}`
-      );
+      throw new Error(`News API responded with status: ${response.status}`);
     }
+
     const data = await response.json();
-    console.log("Fetched data:", data);
+    console.log(`Fetched ${data.articles?.length || 0} articles`);
     res.json(data);
   } catch (error) {
-    console.error("Error fetching news:", error);
-    res
-      .status(500)
-      .json({ message: "Error fetching news", error: error.message });
+    console.error("Server error:", error.message);
+    res.status(500).json({
+      message: "Error fetching news",
+      error: error.message,
+    });
   }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
 app.listen(port, () => {
