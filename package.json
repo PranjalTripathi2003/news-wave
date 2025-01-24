@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node api/server.js & vite",
-    "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cd api && npm install",
+    "dev": "concurrently \"npm run dev --prefix api\" \"vite\"",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
